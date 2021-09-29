@@ -7,16 +7,17 @@ function Student(name, surname, age) {
     this.age = age;
     this.location = new Array(10);
     this.marcks = new Array(10);
-   // Записываем функции через методы
-    this.present = function () {
+   };
+
+Student.prototype.present = function () {
         for (let i = 0; i < this.location.length; i++) {
                 if (typeof this.location[i] === 'undefined') {
                 this.location[i] = 'true';
                 break;
             }
         }
-    };
-    this.absent = function () {
+};
+    Student.prototype.absent = function () {
         
       for (let i = 0; i < this.location.length; i++) {
                 if (typeof this.location[i] === 'undefined') {
@@ -26,18 +27,15 @@ function Student(name, surname, age) {
         }
     };
 
-};
-
-// Записываем функции в прототайп для того чтобы при вызове вункция не вызывалась а наследовалась не засоряя память
 Student.prototype.mark = function (numMark) {
-                if(!(numMark>=0&&numMark<=10)) return alert('Incorect mark');
-      for (let i = 0; i < this.marcks.length; i++) {
-                if (typeof this.marcks[i] === 'undefined') {
-                this.marcks[i] =Number(`${numMark}`);
-                break;
-            }
+    if (!(numMark >= 0 && numMark <= 10)) return alert('Incorect mark');
+    for (let i = 0; i < this.marcks.length; i++) {
+        if (typeof this.marcks[i] === 'undefined') {
+            this.marcks[i] = Number(`${numMark}`);
+            break;
         }
-}
+    }
+};
 Student.prototype.summary = function () {
 
     const newArrAverageMarcks = this.marcks.filter((item) => {
@@ -46,37 +44,37 @@ Student.prototype.summary = function () {
     let averageMarks = newArrAverageMarcks.reduce((peviousValue, curentValue, index, array) => {
         return (peviousValue + curentValue)
     });
-    let averageResultMarks = averageMarks/newArrAverageMarcks.length  
+    let averageResultMarks = averageMarks / newArrAverageMarcks.length
     let newArrAverageLocation = this.location.map((item) => {
-            if (item === 'true') {
-                return (item = 1);
-            };
-            if (item === 'false') {
-                return (item = 0);
-            };     
-        }).filter((item) => {
-                return typeof item === 'number';
-        });
+        if (item === 'true') {
+            return (item = 1);
+        };
+        if (item === 'false') {
+            return (item = 0);
+        };
+    }).filter((item) => {
+        return typeof item === 'number';
+    });
             
-        console.log(newArrAverageLocation);
-        let averageLocation = newArrAverageLocation.reduce((peviousValue, curentValue, index, array) => {
-                return peviousValue + curentValue;
-        });
-       let averageResultLocation = averageLocation / newArrAverageLocation.length
+    console.log(newArrAverageLocation);
+    let averageLocation = newArrAverageLocation.reduce((peviousValue, curentValue, index, array) => {
+        return peviousValue + curentValue;
+    });
+    let averageResultLocation = averageLocation / newArrAverageLocation.length
 
-        console.log(averageResultLocation, 'средняя посещаемость');
-         console.log(averageResultMarks, 'средняя оценка');
-        if (averageResultMarks > 9 && averageResultLocation > 0.9) {
-            alert('Ути какой молодчинка!');
-        };
-         if (averageResultMarks < 9 && averageResultLocation < 0.9) {
-            alert('Редиска!');
-        };
-         if ((averageResultMarks <= 9 && averageResultLocation >= 0.9)||(averageResultMarks >= 9 && averageResultLocation <= 0.9)) {
-            alert('Норм но можно лучше');
-        };
+    console.log(averageResultLocation, 'средняя посещаемость');
+    console.log(averageResultMarks, 'средняя оценка');
+    if (averageResultMarks > 9 && averageResultLocation > 0.9) {
+        alert('Ути какой молодчинка!');
+    };
+    if (averageResultMarks < 9 && averageResultLocation < 0.9) {
+        alert('Редиска!');
+    };
+    if ((averageResultMarks <= 9 && averageResultLocation >= 0.9) || (averageResultMarks >= 9 && averageResultLocation <= 0.9)) {
+        alert('Норм но можно лучше');
+    };
         
-}
+};
 
 // console.log(Student.prototype.summary);
 console.log(Student.prototype);
